@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "powershell",
+      "Shell(git rev-parse --show-toplevel 2>&1; echo \"---\"; ls -la | head -30)"
+    ],
+    "deny": [],
+    "defaultMode": "default"
+  }
+}

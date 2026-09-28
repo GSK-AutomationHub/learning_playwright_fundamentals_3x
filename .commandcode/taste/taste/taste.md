@@ -1,0 +1,8 @@
+# Taste
+- Prefers analysis and a suggested fix over direct edits; explicitly asks not to modify files directly ("do not fix anything directly from your end"), and wants the root cause explained. Confidence: 0.85
+- Conveys requirements via screenshots/images (e.g., sharing an image of a desired folder structure) rather than typing the details out. Confidence: 0.7
+- Organizes test/topic folders with zero-padded numeric prefixes (e.g., 01_Basics, 02_TestAnnotations, ... 23_) to keep an ordered, curriculum-like structure. Confidence: 0.6
+- Uses a standard Playwright test template (`template/template.spec.ts`) as the starting scaffold for new tests: imports `{test, expect} from '@playwright/test'`, a `test(...)` block with `page.goto(...)`, a `// code` placeholder, and `page.pause()`. Confidence: 0.8
+- Prefers automating repeated scaffolding/setup via custom slash commands (e.g., `/start-pw` in `.commandcode/commands/`) rather than manually copying boilerplate. Confidence: 0.7
+- For file-scaffolding commands, prefers the path argument to be optional: when omitted, create the file in the currently selected/active folder in the IDE (inferred from IDE context), and only use an explicit path when provided. Confidence: 0.8
+- Prefers test files named with a numeric prefix plus a PascalCase descriptive name (e.g., `06_OrangeHRM_Assignment.spec.ts`) over kebab-case names, renaming generated kebab-case files to match. Confidence: 0.6
