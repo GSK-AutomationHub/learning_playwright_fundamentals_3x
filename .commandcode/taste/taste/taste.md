@@ -6,3 +6,5 @@
 - Prefers automating repeated scaffolding/setup via custom slash commands (e.g., `/start-pw` in `.commandcode/commands/`) rather than manually copying boilerplate. Confidence: 0.7
 - For file-scaffolding commands, prefers the path argument to be optional: when omitted, create the file in the currently selected/active folder in the IDE (inferred from IDE context), and only use an explicit path when provided. Confidence: 0.8
 - Prefers test files named with a numeric prefix plus a PascalCase descriptive name (e.g., `06_OrangeHRM_Assignment.spec.ts`) over kebab-case names, renaming generated kebab-case files to match. Confidence: 0.6
+- Prefers `main` as the default branch name when initializing git repositories (explicitly requested `git init` with `main` as default). Confidence: 0.85
+- Uses GitHub for remote repository hosting (pushes local repos to a GitHub remote, e.g., under the `GSK-AutomationHub` account). Confidence: 0.6

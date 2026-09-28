@@ -52,7 +52,7 @@ export async function deleteEmployeeRecord(page:Page, employeeRow:Locator) {
     const deleteBtn = employeeRow.locator("[role=cell] button").last();
     await deleteBtn.click();
     const deleteDailog = page.locator("div[role*='document']");
-    if(await deleteBtn.isVisible()){
+    if(await deleteDailog.isVisible()){
         const deleteRecordBtn = deleteDailog.getByRole('button',{name:'Yes, Delete'})
         await deleteRecordBtn.click();
     }else{
