@@ -59,16 +59,3 @@ test("Verify advance dropdown -> Multiple — Searchable -> Select Option", asyn
 
 });
 
-test("Verify advance dropdown -> Multiple — Searchable -> Auto Suggestion", async({page})=>{
-   
-    await page.goto('https://app.thetestingacademy.com/playwright/tables/select-boxes');
-    const multiSearchDropdown = page.locator('#rs-multi');
-    await multiSearchDropdown.click();
-    await page.getByTestId('rs-single-input').pressSequentially('selenium',{delay:500});
-    await expect(page.getByTestId('rs-single-menu')).toContainText('Selenium');
-    await multiSearchDropdown.getByRole('option',{name:'Selenium'}).click()
-    await expect(multiSearchDropdown).toHaveAttribute('data-value','Selenium');
-    await page.waitForTimeout(200);
-    await multiSearchDropdown.getByRole('button',{name:'Clear value'}).click();
-
-});

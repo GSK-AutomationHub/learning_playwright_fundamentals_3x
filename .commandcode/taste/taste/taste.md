@@ -8,4 +8,4 @@
 - Prefers test files named with a numeric prefix plus a PascalCase descriptive name (e.g., `06_OrangeHRM_Assignment.spec.ts`) over kebab-case names, renaming generated kebab-case files to match. Confidence: 0.6
 - Prefers `main` as the default branch name when initializing git repositories (explicitly requested `git init` with `main` as default). Confidence: 0.85
 - Uses GitHub for remote repository hosting (pushes local repos to a GitHub remote, e.g., under the `GSK-AutomationHub` account). Confidence: 0.6
-- Prefers delegating the complete local git workflow to the assistant — when finishing a task, asks to "complete git local workflow and push to main" rather than running stage/commit/push step-by-step. Confidence: 0.8
+- Prefers delegating the complete local git workflow to the assistant — when finishing a task, asks to "complete git local workflow and push to main" rather than running stage/commit/push step-by-step. Confidence: 0.85
