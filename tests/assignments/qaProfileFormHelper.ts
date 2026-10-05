@@ -30,6 +30,9 @@ export async function FillGenderDetails(page: Page, gender: string) {
 }
 
 export async function FillYearsOfExperienceDetails(page: Page, years: string) {
+    if (isNaN(Number(years))) {
+        throw new Error(`Invalid years of experience value: ${years}. Please provide a numeric value.`);
+    }
     const yoeDropdown = page.getByTestId('years-experience');
     await yoeDropdown.selectOption(years);
     await expect(yoeDropdown).toHaveValue(years);

@@ -102,10 +102,10 @@ test('Verify Filling QA Profile Form', async ({ page }) => {
     // Assert Profile Saved Successfully
     const successMessage = page.locator('#submission-output');
     await expect(successMessage).toBeVisible();
-    console.log('Profile saved successfully.');
     console.log(await successMessage.textContent());
     const actualProfileInfo = await successMessage.innerText();
     expect(JSON.parse(actualProfileInfo)).toEqual(expectedProfileInfo);
+    console.log('Profile saved successfully.');
 
 
 });
