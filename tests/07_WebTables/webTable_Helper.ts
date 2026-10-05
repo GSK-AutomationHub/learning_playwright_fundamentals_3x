@@ -11,7 +11,7 @@ export async function loginToOrangeHRMApp(page: Page) {
     await page.waitForURL('**/dashboard/index');
     const heading = page.getByRole('heading', { name: 'Dashboard' });
     await expect(heading).toBeVisible();
-    expect(heading).toHaveText('Dashboard');
+    await expect(heading).toHaveText('Dashboard');
 
 }
 
@@ -34,7 +34,7 @@ export async function createNewEmployeeRecord(page: Page, firstName: string, las
     await lastNameTextField.fill(lastName);
     await employeeIdTextFild.fill(employeeId)
     await saveBtn.click();
-    page.waitForTimeout(3000)
+    //await page.waitForTimeout(3000)
 }
 
 export async function searchEmployeeRecord(page: Page, firstName: string, lastName: string): Promise<Locator> {
@@ -52,12 +52,10 @@ export async function deleteEmployeeRecord(page:Page, employeeRow:Locator) {
     const deleteBtn = employeeRow.locator("[role=cell] button").last();
     await deleteBtn.click();
     const deleteDailog = page.locator("div[role*='document']");
-    if(await deleteDailog.isVisible()){
-        const deleteRecordBtn = deleteDailog.getByRole('button',{name:'Yes, Delete'})
-        await deleteRecordBtn.click();
-    }else{
-        throw new Error('Delete Record Dailog not displayed!');
-        
-    }
-    
+    await deleteDailog.waitFor({state:'visible', timeout:1500});
+    await expect(deleteDailog).toBeVisible();
+    const deleteRecordBtn = deleteDailog.getByRole('button',{name:'Yes, Delete'})
+    await deleteRecordBtn.click();
+    await expect(page.getByText('No Records Found').first()).toBeVisible();
+
 }

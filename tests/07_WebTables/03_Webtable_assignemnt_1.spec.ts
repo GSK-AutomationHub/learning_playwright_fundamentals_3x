@@ -41,6 +41,8 @@ test.only('Verify selecting desired user row of Webtable using Xpath', async({pa
     let secondPart = "]/td[";
     let thirdPart = "]";
 
+    let found = false;
+
     // Loop through table
     for(let i=1; i<=rowCount; i++){
         for(let j=1; j<=columnCount; j++){
@@ -50,8 +52,12 @@ test.only('Verify selecting desired user row of Webtable using Xpath', async({pa
                 const userRecordRowCheckbox = page.locator(`${dynamicXpath}/preceding-sibling::td`).locator('input');
                 await userRecordRowCheckbox.check();
                 await expect(userRecordRowCheckbox).toBeChecked();
+                found = true;
                 break;
             }
+        }
+        if(found){
+            break;
         }
     }
 });
