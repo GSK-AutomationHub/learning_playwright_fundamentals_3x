@@ -33,7 +33,40 @@ export async function processCleanTxnData(page: Page, cleanedTxnData: Object):Pr
 
 }
 
+/*
+ your destructuring is right; the type is the problem. Promise&lt;Object&gt; tells TypeScript the function returns an object with no known fields, so const { rawSpentAmt } = rawTxnData fails with "Property 'rawSpentAmt' does not exist on type 'Object'". The "interface" the AI suggested is just a name for the object's shape. With a type for each step, data flows from one function to the next:
 
+type RawTxn = { rawSpentAmt: string[]; rawEarnedAmt: string[] };
+type CleanTxn = { cleanedSpentAmt: number[]; cleanedEarnedAmt: number[] };
+
+export async function extractTxnData(rows: Locator): Promise<RawTxn> {
+  const rawSpentAmt = await rows.locator('.text-danger').allInnerTexts();
+  const rawEarnedAmt = await rows.locator('.text-success').allInnerTexts();
+  return { rawSpentAmt, rawEarnedAmt };
+}
+
+export function cleanRawTxnData({ rawSpentAmt, rawEarnedAmt }: RawTxn): CleanTxn {
+  const toNumber = (amt: string) => Number(amt.replace(/[^\d.]/g, ''));
+  return { cleanedSpentAmt: rawSpentAmt.map(toNumber), cleanedEarnedAmt: rawEarnedAmt.map(toNumber) };
+}
+
+export function processCleanTxnData({ cleanedSpentAmt, cleanedEarnedAmt }: CleanTxn) {
+  const sum = (list: number[]) => list.reduce((total, amt) => total + amt, 0);
+  const totalSpentAmt = sum(cleanedSpentAmt);
+  const totalEarnedAmt = sum(cleanedEarnedAmt);
+  return { totalSpentAmt, totalEarnedAmt, totalBalanceAmt: Number((totalEarnedAmt - totalSpentAmt).toFixed(2)) };
+}
+
+In the test: const raw = await extractTxnData(rows); const clean = cleanRawTxnData(raw); const { totalBalanceAmt } = processCleanTxnData(clean);
+
+Two more points: clean and process never touch the page, so they need no page parameter and no async. And you can destructure right in the parameter list, as above. Deleting the : Promise<Object> annotations would also work, because TypeScript then infers the shape from the return statement.
+
+
+
+
+
+
+*/
 
 
 

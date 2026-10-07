@@ -1,21 +1,53 @@
-import { test, expect, Locator } from '@playwright/test';
+import { test} from '@playwright/test';
+import * as fs from 'fs';
+import * as path from 'path';
 
-test('Verify the TestCase', async ({ page }) => {
+test.only('Verify Keyboard Press', async({page})=>{
+   await page.goto('https://www.toptal.com/developers/keycode');
+
+   const filePath = path.join(__dirname, './Screenshots/');
+
+   let word = 'Ganesh'
+   for(let char of word){
+      await page.keyboard.press(char)
+      page.screenshot({path:filePath + `${char}.png`})
+   }
+
+});
+
+
+test('Verify Keyboard Press Key Combinations', async ({ page }) => {
    await page.goto("https://keycode.info");
 
-   await page.keyboard.press('A');
-   await page.screenshot({ path: 'A.png' });
+   const filePath = path.join(__dirname, './Screenshots/');
 
-   await page.keyboard.press('ArrowLeft');
-   await page.screenshot({ path: 'ArrowLeft.png' });
+   let comboKeys = ['ArrowLeft','Shift+O','Shift']
 
+   for(let key of comboKeys){
+      if(key === 'Shift'){
+         await page.keyboard.up(key);
+         page.screenshot({path:filePath + `${key}Up.png`});
+         await page.keyboard.down(key);
+         page.screenshot({path:filePath + `${key}Down.png`});
+      }else{
+         await page.keyboard.press(key);
+         page.screenshot({path:filePath + `${key}.png`});
 
-   await page.keyboard.press('Shift+O');
-   await page.screenshot({ path: 'O.png' });
+      }
+      
+   }
 
-   await page.keyboard.up("Shift");
-   await page.keyboard.down("Shift");
+});
 
+test("Clean the Screenshot folder", async({page})=>{
 
-   await page.pause();
+   const folderPath = path.join(__dirname, './Screenshots');
+
+  if (fs.existsSync(folderPath)) {
+   //  fs.unlinkSync(filePath);
+   //  console.log('File deleted successfully');
+    fs.rmSync(folderPath, { recursive: true, force: true });
+    console.log('Folder and all contents deleted successfully');
+  }
+
 });

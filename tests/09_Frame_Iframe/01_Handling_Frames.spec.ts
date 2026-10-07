@@ -14,14 +14,14 @@ test('Verify Advance Custom DropDowns', async ({ page }) => {
   const vehicleOtput = frame.locator('#vehicle-output');
   const resetButton = frame.getByRole('button', { name: 'Reset' });
 
-  const expectedVehicleOutput ={
-  "vehicleName": "BMW",
-  "ownerName": "John Doe",
-  "regNumber": "12345",
-  "vehicleType": "Electric",
-  "year": "2026",
-  "notes": "My car details"
-}
+  const expectedVehicleOutput = {
+    "vehicleName": "BMW",
+    "ownerName": "John Doe",
+    "regNumber": "12345",
+    "vehicleType": "Electric",
+    "year": "2026",
+    "notes": "My car details"
+  }
 
   await vehicleNameTextBox.fill('BMW');
   await ownerNameTextBox.fill('John Doe');

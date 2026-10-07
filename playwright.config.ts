@@ -15,6 +15,8 @@ export default defineConfig({
     screenshot: 'only-on-failure',
     trace: 'retain-on-failure',
     video: 'retain-on-failure',
+    //permissions: ['geolocation'],
+    //viewport: { width: 1920, height: 1080 },
   }
 
   

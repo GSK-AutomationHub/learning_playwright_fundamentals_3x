@@ -117,3 +117,24 @@ export class QAProfile {
         console.log('Profile saved successfully.');
     }
 }
+
+/*
+
+ good structure in both versions. The class version is a proper page object (page in the constructor, one method per form section), the test data lives in one object, and the final check compares the whole saved JSON with toEqual. Improvements:
+
+fillContinentsDetails uses click(), which toggles: if a box is already checked, click() unchecks it. Use check(), as you did for the tools.
+
+Replace the console.log loops in fillProfessionDetails and fillAutomationToolsDetails with assertions, for example await expect(this.page.getByRole('checkbox', { name: tool })).toBeChecked(). A log never fails a test.
+
+fillGenderDetails does not need if/else branches: const radio = this.page.getByRole('radio', { name: gender, exact: true }); await radio.check(); await expect(radio).toBeChecked();
+
+In the helper version, start function names with a lowercase letter (fillUserNameDetails, not FillUserNameDetails). Capitalised names are for classes.
+
+Move QAProfile.ts into a pages folder, so the tests folder holds only tests.
+
+
+
+
+
+
+*/

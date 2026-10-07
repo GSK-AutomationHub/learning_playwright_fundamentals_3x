@@ -1,12 +1,13 @@
-import {test, expect,Locator, FrameLocator} from '@playwright/test';
+import { test, expect, Locator, FrameLocator } from '@playwright/test';
 
-test('Verify multiple frames', async({page}) => {
+test('Verify multiple frames', async ({ page }) => {
     await page.goto('https://app.thetestingacademy.com/playwright/frames/multi-frames');
     await page.waitForLoadState('load');
-    const allFrames:Locator[] = await page.locator("//frame").all();
+
+    const allFrames: Locator[] = await page.locator("//frame").all();
     console.log('total number of frames: ' + allFrames.length);
-    for(const frame of allFrames){
-    console.log(`${await frame.getAttribute('name')}: ${await frame.getAttribute('src')}`);
+    for (const frame of allFrames) {
+        console.log(`${await frame.getAttribute('name')}: ${await frame.getAttribute('src')}`);
     }
     // allFrames.forEach(async(frame) => {
     //     console.log(`${await frame.getAttribute('name')}: ${await frame.getAttribute('src')}`);
